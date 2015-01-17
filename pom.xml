@@ -12,7 +12,7 @@
 		<module>client</module>
 		<module>common</module>
 		<module>dal</module>
-		<module>server</module>
+		<module>service</module>
 	</modules>
 
 	<properties>
@@ -152,5 +152,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- 日志配置结束 -->
+		
 	</dependencies>
 </project>

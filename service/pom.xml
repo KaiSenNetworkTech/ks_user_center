@@ -9,27 +9,20 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>biz</artifactId>
-	<name>biz</name>
+	<groupId>com.kaisen.usercenter</groupId>
+	<artifactId>service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>service Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.kaisen.usercenter</groupId>
-			<artifactId>common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.kaisen.usercenter</groupId>
-			<artifactId>dal</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.kaisen.usercenter</groupId>
-			<artifactId>client</artifactId>
+			<artifactId>biz</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<finalName>service</finalName>
+	</build>
 </project>
