@@ -9,8 +9,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>biz</artifactId>
-	<name>biz</name>
+	<artifactId>usercenter.biz</artifactId>
+	<name>usercenter biz</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,17 +18,17 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.kaisen.usercenter</groupId>
-			<artifactId>common</artifactId>
+			<artifactId>usercenter.common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.kaisen.usercenter</groupId>
-			<artifactId>dal</artifactId>
+			<artifactId>usercenter.dal</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.kaisen.usercenter</groupId>
-			<artifactId>client</artifactId>
+			<artifactId>usercenter.client</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
