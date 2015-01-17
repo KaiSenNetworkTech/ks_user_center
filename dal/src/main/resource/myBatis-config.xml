@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 是否启用 数据中 a_column 自动映射 到 java类中驼峰命名的属性。[默认:false] -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	<typeAliases>
+	<!--
+		<typeAlias alias="AppDo" type="com.yunos.tv.appupgrade.dal.domain.AppDo"/>
+		<typeAlias alias="PreAppDeviceDo" type="com.yunos.tv.appupgrade.dal.domain.PreAppDeviceDo"/>
+		<typeAlias alias="PreInstallAppDo" type="com.yunos.tv.appupgrade.dal.domain.PreInstallAppDo"/>
+		<typeAlias alias="PreUnInstallAppDo" type="com.yunos.tv.appupgrade.dal.domain.PreUnInstallAppDo"/>
+		<typeAlias alias="TestGrayStrategyDo" type="com.yunos.tv.appupgrade.dal.domain.TestGrayStrategyDo"/>
+		<typeAlias alias="TestGroupDeviceDo" type="com.yunos.tv.appupgrade.dal.domain.TestGroupDeviceDo"/>
+		<typeAlias alias="TestGroupDo" type="com.yunos.tv.appupgrade.dal.domain.TestGroupDo"/>
+		<typeAlias alias="UpgradeAppVersionDo" type="com.yunos.tv.appupgrade.dal.domain.UpgradeAppVersionDo"/>
+		<typeAlias alias="UpgradeVersionDeviceDo" type="com.yunos.tv.appupgrade.dal.domain.UpgradeVersionDeviceDo"/>
+		<typeAlias alias="UpgradeVersionGroupDo" type="com.yunos.tv.appupgrade.dal.domain.UpgradeVersionGroupDo"/>
+		<typeAlias alias="UpgradeVersionPrepublishDo" type="com.yunos.tv.appupgrade.dal.domain.UpgradeVersionPrepublishDo"/>
+		<typeAlias alias="UpgradeVersionPrepublishUuidDo" type="com.yunos.tv.appupgrade.dal.domain.UpgradeVersionPrepublishUuidDo"/>	
+		<typeAlias alias="DeviceModelDo" type="com.yunos.tv.appupgrade.dal.domain.DeviceModelDo"/>	
+		
+		<typeAlias alias="AppVersionDo" type="com.yunos.tv.appupgrade.dal.domain.AppVersionDo"/>	
+		<typeAlias alias="PreInstallAppInfoDo" type="com.yunos.tv.appupgrade.dal.domain.PreInstallAppInfoDo"/>	
+		<typeAlias alias="PreUnInstallAppInfoDo" type="com.yunos.tv.appupgrade.dal.domain.PreUnInstallAppInfoDo"/>			
+		
+		<typeAlias alias="UpgradeAppVersionQuery" type="com.yunos.tv.appupgrade.dal.domain.query.UpgradeAppVersionQuery"/>
+		<typeAlias alias="PreInstallAppQuery" type="com.yunos.tv.appupgrade.dal.domain.query.PreInstallAppQuery"/>
+		
+			
+		<typeAlias alias="ResourceDo" type="com.yunos.tv.appupgrade.dal.domain.ResourceDo"/>
+		<typeAlias alias="ResourceVersionDo" type="com.yunos.tv.appupgrade.dal.domain.ResourceVersionDo"/>
+		<typeAlias alias="ResourceUpgradeRuleDo" type="com.yunos.tv.appupgrade.dal.domain.ResourceUpgradeRuleDo"/>
+		<typeAlias alias="ResourceUpgradeQuery" type="com.yunos.tv.appupgrade.dal.domain.query.ResourceUpgradeQuery"/>
+		<typeAlias alias="ResourceVersionPrepublishDo" type="com.yunos.tv.appupgrade.dal.domain.ResourceVersionPrepublishDo"/>
+		<typeAlias alias="ResourceVersionPrepublishUuidDo" type="com.yunos.tv.appupgrade.dal.domain.ResourceVersionPrepublishUuidDo"/>
+	-->
+	</typeAliases>
+    <mappers></mappers>
+</configuration>

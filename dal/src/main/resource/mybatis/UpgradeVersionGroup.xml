@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yunos.tv.appupgrade.dal.dao.UpgradeVersionGroupDAO">
+
+	<!--获取应用升级（预装\卸载）测试环境下的有儿测试分组信息，关联test_group表主要是查询有效分组-->	
+	<select id="getListByContidion" resultType="UpgradeVersionGroupDo" parameterType="UpgradeVersionGroupDo">
+		SELECT u.id,u.version_id,u.group_id,u.name,u.type
+		FROM
+			`upg_version_group` u, `test_group` t
+		WHERE
+			<if test="versionIds != null">
+				u.version_id IN 
+				<foreach item="item" index="index" collection="versionIds" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND 	
+			</if>
+			<if test="versionId != null">
+				u.version_id  = #{versionId} AND	
+			</if>
+			<if test="type != null">
+				u.`type` = #{type} AND  
+			</if>
+			 t.id = u.group_id AND u.is_delete = 0 AND t.is_delete = 0
+		LIMIT 200	
+	</select>	
+
+</mapper>

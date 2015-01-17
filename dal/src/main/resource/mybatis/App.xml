@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yunos.tv.appupgrade.dal.dao.AppDAO">
+
+	<select id="selectById" resultType="AppDo" parameterType="long">
+		select `id`,`name`,`package_name`
+		FROM `app`
+		WHERE id = #{id} AND is_delete = 0
+		LIMIT 1
+	</select>
+	
+	<select id="selectPackageName" resultType="AppDo" parameterType="String">
+		select `id`,`name`,`package_name`
+		FROM `app`
+		WHERE `package_name` = #{packageName} AND `is_delete` = 0
+		LIMIT 1
+	</select>
+
+	<select id="selectAll" resultType="AppDo">
+		select `id`,`name`,`package_name`
+		FROM `app`
+		WHERE `is_delete` = 0
+	</select>		
+</mapper>

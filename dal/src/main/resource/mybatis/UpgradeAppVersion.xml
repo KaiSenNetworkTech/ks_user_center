@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yunos.tv.appupgrade.dal.dao.UpgradeAppVersionDAO">
+
+	<select id="selectById" resultType="UpgradeAppVersionDo" parameterType="long">
+		select 
+			`id`,`app_id`,`version_code`,`version`,`release_note`,`need_restart`,
+			`original_url`,`download_path`,`download_md5`,`size`,`status`
+		FROM `upg_app_version`
+		WHERE id = #{id} AND is_delete = 0
+		LIMIT 1
+	</select>
+	
+	<select id="selectByAppId" resultType="UpgradeAppVersionDo" parameterType="long">
+		select 
+			`id`,`app_id`,`version_code`,`version`,`release_note`,`need_restart`,
+			`original_url`,`download_path`,`download_md5`,`size`,`status`
+		FROM `upg_app_version`
+		WHERE `app_id` = #{appId}  AND is_delete = 0
+		LIMIT 1	
+	</select>
+
+	<!--按条件获取一个应用版本列表，大于现有版本的所有版本，为了效率，按版本号取前100条，正常情况升级跨版本不超过5条数据-->
+	<select id="getListByCondition"  resultType="UpgradeAppVersionDo" parameterType="UpgradeAppVersionQuery">
+		SELECT 
+			`id`,`app_id`,`version_code`,`version`,`release_note`,`status`,`download_path`,`download_md5`,
+			`size`,`need_restart`,`gmt_modify`
+		FROM
+			`upg_app_version`
+		WHERE
+			`app_id` = #{appId} AND
+			<if test="statusList != null">
+				`status` IN 
+				<foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND 	
+			</if>	
+			<if test="status != null">	 
+				`status` = #{status} AND
+			</if>
+			`version_code` > #{versionCode} AND	
+			`is_delete` = 0  
+		ORDER BY `version_code` DESC
+		LIMIT 100;			
+	</select>		
+
+	<!-- 获取一个应用 的所有有效状态，状态为1:测试中,2:测试通过,3:预发布,4:已发布 -->	
+	<select id="getAllByAppId"  resultType="UpgradeAppVersionDo" parameterType="long">
+		SELECT 
+			`id`,`app_id`,`version_code`,`version`,`release_note`,`status`,`download_path`,`download_md5`,
+			`size`,`need_restart`,`gmt_modify`
+		FROM
+			`upg_app_version`
+		WHERE
+			`app_id` = #{appId} AND
+			`status` IN(1,2,3,4) AND
+			`is_delete` = 0  
+		ORDER BY `version_code` DESC,`status` DESC	
+	</select>			
+
+</mapper>

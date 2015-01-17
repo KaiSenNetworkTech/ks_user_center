@@ -1,12 +1,12 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1">
     <id></id>
-    <baseDirectory>alinkupgrade.war</baseDirectory>
+    <baseDirectory>usercenter.war</baseDirectory>
     <formats>
         <format>tar.gz</format>
     </formats>
     <fileSets>
         <fileSet>
-            <directory>server/target/alinkupgrade</directory>
+            <directory>service/target/usercenter</directory>
             <outputDirectory></outputDirectory>
             <includes>
                 <include>**/**</include>
