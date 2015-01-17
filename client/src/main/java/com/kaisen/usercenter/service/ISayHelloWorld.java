@@ -1,5 +1,5 @@
 package com.kaisen.usercenter.service;
 
-public interface SayHelloWorld {
+public interface ISayHelloWorld {
 	public String sayHelloWorld();
 }
