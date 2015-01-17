@@ -6,3 +6,5 @@ target
 logs
 hsf.configuration
 bin
+.tomcatplugin
+.#webclasspath
