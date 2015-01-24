@@ -130,6 +130,11 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.34</version>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.12</version>
+		</dependency>
 		<!-- 数据库 -->
 
 		<!-- 日志配置开始 -->
@@ -166,5 +171,54 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- 日志配置结束 -->
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kaisen.common</groupId>
+			<artifactId>kaisen.common</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
+						<projectnature>org.eclipse.wst.common.modulecore.ModuleCoreNature</projectnature>
+						<projectnature>org.eclipse.jem.workbench.JavaEMFNature</projectnature>  
+					</additionalProjectnatures>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

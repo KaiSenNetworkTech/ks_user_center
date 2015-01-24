@@ -19,8 +19,16 @@
 				[%logger:%line]--%mdc{client} %msg%n</Pattern>
 		</encoder>
 	</appender>
-	<logger name="org.springframework" level="DEBUG" />
-	<root level="TRACE">
+		<logger name="org.springframework" level="ERROR">
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="com.dubbo" level="ERROR">
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="com.kaisen" level="DEBUG">
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<root level="ERROR">
 		<appender-ref ref="STDOUT" />
 		<!-- appender-ref ref="FILE" / -->
 	</root>

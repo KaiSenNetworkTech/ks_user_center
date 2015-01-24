@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
 	default-autowire="byName">
 
-	<!-- 数据库JDBC的配置 
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="2000" />
+		<property name="logSlowSql" value="true" />
+		<property name="mergeSql" value="true" />
+	</bean>
+	<!-- 数据库JDBC的配置 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-		init-method="init" destroy-method="close">		
-		<property name="url" value="jdbc:mysql://${appupgrade.mysql.url}?useUnicode=true&amp;characterEncoding=utf8" />
-		<property name="username" value="${appupgrade.mysql.username}" />
-		<property name="password" value="${appupgrade.mysql.password}" />
+		init-method="init" destroy-method="close">
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/KS_USER_CENTER?useUnicode=true&amp;characterEncoding=utf8" />
+		<property name="username" value="ks_user_center" />
+		<property name="password" value="123456" />
 		<property name="initialSize" value="1" />
 		<property name="maxActive" value="50" />
 		<property name="maxIdle" value="50" />
@@ -22,6 +34,23 @@
 		<property name="testOnBorrow" value="false" />
 		<property name="testOnReturn" value="false" />
 		<property name="validationQuery" value="SELECT @@SQL_MODE" />
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 开启注解配置 -->
+	<context:annotation-config />
+
+	<!-- 开启事务注解驱动 -->
+	<tx:annotation-driven />
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -32,7 +61,6 @@
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-		<property name="basePackage" value="com.kaisen.usercenter.dal.dao"></property>
+		<property name="basePackage" value="com.kaisen.usercenter.dao"></property>
 	</bean>
-	-->
 </beans>

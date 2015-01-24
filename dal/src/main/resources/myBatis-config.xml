@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 是否启用 数据中 a_column 自动映射 到 java类中驼峰命名的属性。[默认:false] -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	<typeAliases>
+		<typeAlias alias="UserInfoDO" type="com.kaisen.usercenter.domain.UserInfoDO" />
+		<typeAlias alias="UserInfoQuery" type="com.kaisen.usercenter.query.UserInfoQuery" />
+
+
+	</typeAliases>
+
+	<plugins>
+		<plugin interceptor="com.kaisen.common.page.PageInterceptor">
+			<property name="databaseType" value="Mysql" />
+		</plugin>
+	</plugins>
+
+	<mappers></mappers>
+</configuration>

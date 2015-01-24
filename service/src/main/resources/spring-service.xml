@@ -10,7 +10,7 @@
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 	<context:component-scan base-package="com.kaisen.usercenter.service.impl" />
-	<dubbo:application name="annotation-provider" />
+	<dubbo:application name="user-center" />
 	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
 
 	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->

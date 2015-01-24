@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaisen.usercenter.dao.UserInfoDAO">
+
+	<sql id="UserInfoTable">
+		tbl_user_info
+	</sql>
+
+	<sql id="UserInfoField">
+		id,
+		user_name,
+		mobile_phone_no,
+		password,
+		avatars_url,
+		status,
+		date_of_birth,
+		sex,
+		region_code,
+		gmt_create,
+		gmt_modify
+	</sql>
+
+	<sql id="QueryCondition">
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				id=#{id}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND user_name LIKE CONCAT('%',#{userName},'%' )
+			</if>
+			<if test="mobilePhoneNo != null and mobilePhoneNo != ''">
+				AND mobile_phone_no=#{mobilePhoneNo}
+			</if>
+			<if test="password != null and password != ''">
+				AND password=#{password}
+			</if>
+			<if test="status != null">
+				AND status=#{status}
+			</if>
+		</trim>
+	</sql>
+
+	<sql id="OrderCondition">
+		ORDER BY id DESC
+	</sql>
+
+	<insert id="insertUserInfo" parameterType="UserInfoDO"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		<include refid="UserInfoTable" />
+		(
+		user_name,
+		mobile_phone_no,
+		password,
+		status,
+		gmt_create,
+		gmt_modify
+		)
+		VALUES (
+		#{userName},
+		#{mobilePhoneNo},
+		#{password},
+		1,
+		#{gmtCreate},
+		#{gmtModify}
+		)
+	</insert>
+
+	<update id="updateUserInfo" parameterType="UserInfoDO">
+		UPDATE
+		<include refid="UserInfoTable" />
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="userName != null">
+				user_name=#{userName},
+			</if>
+			<if test="password != null">
+				password=#{password},
+			</if>
+			<if test="avatarsUrl != null">
+				avatars_url=#{avatarsUrl},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+			<if test="dateOfBirth != null">
+				date_of_birth=#{dateOfBirth},
+			</if>
+			<if test="sex != null">
+				sex=#{sex},
+			</if>
+			<if test="regionCode != null">
+				region_code=#{regionCode},
+			</if>
+			<if test="gmtModify != null">
+				gmt_modify=#{gmtModify}
+			</if>
+		</trim>
+		WHERE id=#{id}
+	</update>
+
+	<select id="queryUserInfo" parameterType="UserInfoQuery"
+		resultType="UserInfoDO">
+		SELECT
+		<include refid="UserInfoField" />
+		FROM
+		<include refid="UserInfoTable" />
+		<include refid="QueryCondition" />
+		<include refid="OrderCondition" />
+	</select>
+
+	<delete id="deleteUserInfo" parameterType="UserInfoDO">
+		DELETE FROM
+		<include refid="UserInfoTable" />
+		WHERE
+		id=#{id}
+	</delete>
+</mapper>
