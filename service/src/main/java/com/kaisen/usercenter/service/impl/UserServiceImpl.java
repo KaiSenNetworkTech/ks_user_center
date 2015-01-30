@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +47,8 @@ public class UserServiceImpl implements IUserService {
 		if (userInfoDOFromDB == null) {
 			try {
 				Date current = new Date();
+				userInfoDO.setPassword(DigestUtils.md5Hex(userInfoDO
+						.getPassword()));
 				userInfoDO.setGmtCreate(current);
 				userInfoDO.setGmtModify(current);
 				userInfoManager.insertUserInfo(userInfoDO);
