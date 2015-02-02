@@ -31,9 +31,11 @@ public class UserServiceImpl implements IUserService {
 	public CallServiceResult<Void> register(UserInfoDO userInfoDO) {
 		CallServiceResult<Void> result = new CallServiceResult<Void>();
 
-		if (StringUtils.isBlank(userInfoDO.getUserName())
-				|| StringUtils.isBlank(userInfoDO.getMobilePhoneNo())
-				|| StringUtils.isBlank(userInfoDO.getPassword())) {
+		if (userInfoDO == null
+				|| StringUtils
+						.isAnyBlank(userInfoDO.getUserName(),
+								userInfoDO.getMobilePhoneNo(),
+								userInfoDO.getPassword())) {
 			result.setResultEnum(ResultEnum.REGISTER_PARAMS_ERROR);
 			return result;
 		}
@@ -68,8 +70,9 @@ public class UserServiceImpl implements IUserService {
 	public CallServiceResult<UserInfoDO> authentication(UserInfoDO userInfoDO) {
 		CallServiceResult<UserInfoDO> result = new CallServiceResult<UserInfoDO>();
 
-		if (StringUtils.isBlank(userInfoDO.getMobilePhoneNo())
-				|| StringUtils.isBlank(userInfoDO.getPassword())) {
+		if (userInfoDO == null
+				|| StringUtils.isAnyBlank(userInfoDO.getMobilePhoneNo(),
+						userInfoDO.getPassword())) {
 			result.setResultEnum(ResultEnum.MOBILE_PHONE_NO_OR_PASSWORD_NULL);
 			return result;
 		}
@@ -96,7 +99,8 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public CallServiceResult<Void> updateUserInfo(UserInfoDO userInfoDO) {
 		CallServiceResult<Void> result = new CallServiceResult<Void>();
-		if (userInfoDO.getId() == null || userInfoDO.getId() < 1) {
+		if (userInfoDO == null || userInfoDO.getId() == null
+				|| userInfoDO.getId() < 1) {
 			result.setResultEnum(ResultEnum.PARAMS_ERROR);
 			return result;
 		}
@@ -117,6 +121,11 @@ public class UserServiceImpl implements IUserService {
 	public CallServiceResult<List<UserInfoDO>> queryUserInfo(
 			UserInfoQuery userInfoQuery) {
 		CallServiceResult<List<UserInfoDO>> result = new CallServiceResult<List<UserInfoDO>>();
+		if (userInfoQuery == null) {
+			result.setResultEnum(ResultEnum.PARAMS_ERROR);
+			return result;
+		}
+
 		List<UserInfoDO> userInfoDOs = userInfoManager.query(userInfoQuery);
 		result.setReturnObject(userInfoDOs);
 		result.setResultEnum(ResultEnum.SUCCESS);
@@ -126,6 +135,11 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public CallServiceResult<Void> deleteUserInfo(UserInfoDO userInfoDO) {
 		CallServiceResult<Void> result = new CallServiceResult<Void>();
+		if (userInfoDO == null) {
+			result.setResultEnum(ResultEnum.PARAMS_ERROR);
+			return result;
+		}
+
 		try {
 			userInfoManager.delete(userInfoDO);
 		} catch (Exception e) {
