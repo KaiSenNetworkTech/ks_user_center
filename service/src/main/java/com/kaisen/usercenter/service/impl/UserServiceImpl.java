@@ -62,7 +62,6 @@ public class UserServiceImpl implements IUserService {
 			}
 		}
 
-		result.setResultEnum(ResultEnum.SUCCESS);
 		return result;
 	}
 
@@ -88,7 +87,6 @@ public class UserServiceImpl implements IUserService {
 		UserInfoDO userInfoDOFromDB = userInfos.get(0);
 		if (userInfoDO.getPassword().equals(userInfoDOFromDB.getPassword())) {
 			result.setReturnObject(userInfoDOFromDB);
-			result.setResultEnum(ResultEnum.SUCCESS);
 			return result;
 		} else {
 			result.setResultEnum(ResultEnum.MOBILE_PHONE_NO_OR_PASSWORD_ERROR);
@@ -113,7 +111,6 @@ public class UserServiceImpl implements IUserService {
 			return result;
 		}
 
-		result.setResultEnum(ResultEnum.SUCCESS);
 		return result;
 	}
 
@@ -128,7 +125,6 @@ public class UserServiceImpl implements IUserService {
 
 		List<UserInfoDO> userInfoDOs = userInfoManager.query(userInfoQuery);
 		result.setReturnObject(userInfoDOs);
-		result.setResultEnum(ResultEnum.SUCCESS);
 		return result;
 	}
 
