@@ -6,11 +6,11 @@ import com.kaisen.usercenter.domain.UserInfoDO;
 import com.kaisen.usercenter.query.UserInfoQuery;
 
 public interface UserInfoDAO {
-	Integer insertUserInfo(UserInfoDO userInfoDO);
+	Integer insert(UserInfoDO userInfoDO);
 
-	Integer updateUserInfo(UserInfoDO userInfoDO);
+	Integer update(UserInfoDO userInfoDO);
 
-	List<UserInfoDO> queryUserInfo(UserInfoQuery userInfoQuery);
+	List<UserInfoDO> query(UserInfoQuery userInfoQuery);
 
-	Integer deleteUserInfo(UserInfoDO userInfoDO);
+	Integer delete(UserInfoDO userInfoDO);
 }

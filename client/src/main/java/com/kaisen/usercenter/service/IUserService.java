@@ -3,6 +3,7 @@ package com.kaisen.usercenter.service;
 import java.util.List;
 
 import com.kaisen.usercenter.domain.UserInfoDO;
+import com.kaisen.usercenter.query.UserInfoQuery;
 import com.kaisen.common.result.CallServiceResult;
 
 public interface IUserService {
@@ -12,7 +13,8 @@ public interface IUserService {
 
 	CallServiceResult<Void> updateUserInfo(UserInfoDO userInfoDO);
 
-	CallServiceResult<List<UserInfoDO>> queryUserInfoByName(String userName);
+	CallServiceResult<List<UserInfoDO>> queryUserInfo(
+			UserInfoQuery userInfoQuery);
 
-	CallServiceResult<Void> deleteUserInfoById(Long id);
+	CallServiceResult<Void> deleteUserInfo(UserInfoDO userInfoDO);
 }

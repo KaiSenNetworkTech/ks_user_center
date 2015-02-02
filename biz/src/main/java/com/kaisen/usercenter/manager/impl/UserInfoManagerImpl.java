@@ -8,10 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
-import com.kaisen.usercenter.domain.UserInfoDO;
 import com.kaisen.usercenter.dao.UserInfoDAO;
+import com.kaisen.usercenter.domain.UserInfoDO;
 import com.kaisen.usercenter.manager.IUserInfoManager;
 import com.kaisen.usercenter.query.UserInfoQuery;
 
@@ -25,41 +24,30 @@ public class UserInfoManagerImpl implements IUserInfoManager {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void insertUserInfo(UserInfoDO userInfoDO) {
+	public void insert(UserInfoDO userInfoDO) {
 		logger.debug("插入用户信息{}", userInfoDO);
-		Integer num = userInfoDAO.insertUserInfo(userInfoDO);
+		Integer num = userInfoDAO.insert(userInfoDO);
 		logger.debug("插入用户记录成功,共{}条", num);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void updateUserInfo(UserInfoDO userInfoDO) {
-		logger.debug("更新用户信{}", userInfoDO);
-		Integer num = userInfoDAO.updateUserInfo(userInfoDO);
-		logger.debug("更新用户记录成功,共{}条", num);
+	public void update(UserInfoDO userInfoDO) {
+		logger.debug("更新用户信息{}", userInfoDO);
+		Integer num = userInfoDAO.update(userInfoDO);
+		logger.debug("更新用户信息成功,共{}条", num);
 	}
 
 	@Override
-	public List<UserInfoDO> queryUserInfo(UserInfoQuery userInfoQuery) {
-		return userInfoDAO.queryUserInfo(userInfoQuery);
-	}
-
-	@Override
-	public UserInfoDO queryUserInfoByMobilePhoneNo(String mobilePhoneNo) {
-		UserInfoQuery userInfoQuery = new UserInfoQuery();
-		userInfoQuery.setMobilePhoneNo(mobilePhoneNo);
-		List<UserInfoDO> userInfoDOs = userInfoDAO.queryUserInfo(userInfoQuery);
-
-		return CollectionUtils.isEmpty(userInfoDOs) ? null : userInfoDOs.get(0);
+	public List<UserInfoDO> query(UserInfoQuery userInfoQuery) {
+		return userInfoDAO.query(userInfoQuery);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void deleteUserInfo(Long id) {
-		logger.debug("删除用户信息,用户ID={}", id);
-		UserInfoDO userInfoDO = new UserInfoDO();
-		userInfoDO.setId(id);
-		Integer num = userInfoDAO.deleteUserInfo(userInfoDO);
+	public void delete(UserInfoDO userInfoDO) {
+		logger.debug("删除用户信息{}", userInfoDO);
+		Integer num = userInfoDAO.delete(userInfoDO);
 		logger.debug("删除用户信息成功,共{}条", num);
 	}
 }

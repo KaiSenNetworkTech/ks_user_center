@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,21 +38,21 @@ public class UserServiceImpl implements IUserService {
 			return result;
 		}
 
-		UserInfoDO userInfoDOFromDB = userInfoManager
-				.queryUserInfoByMobilePhoneNo(userInfoDO.getMobilePhoneNo());
-		if (this.isUserExists(userInfoDOFromDB)) {
+		UserInfoQuery userInfoQuery = new UserInfoQuery();
+		userInfoQuery.setMobilePhoneNo(userInfoDO.getMobilePhoneNo());
+		List<UserInfoDO> userInfos = userInfoManager.query(userInfoQuery);
+		if (CollectionUtils.isNotEmpty(userInfos)) {
 			result.setResultEnum(ResultEnum.MOBILE_PHONE_NO_ALREADY_EXISTS);
 			return result;
-		}
+		} else {
+			Date current = new Date();
+			userInfoDO
+					.setPassword(DigestUtils.md5Hex(userInfoDO.getPassword()));
+			userInfoDO.setGmtCreate(current);
+			userInfoDO.setGmtModify(current);
 
-		if (userInfoDOFromDB == null) {
 			try {
-				Date current = new Date();
-				userInfoDO.setPassword(DigestUtils.md5Hex(userInfoDO
-						.getPassword()));
-				userInfoDO.setGmtCreate(current);
-				userInfoDO.setGmtModify(current);
-				userInfoManager.insertUserInfo(userInfoDO);
+				userInfoManager.insert(userInfoDO);
 			} catch (Exception e) {
 				logger.error("插入用户信息失败", e);
 				result.setResultEnum(ResultEnum.DB_ERROR);
@@ -73,13 +74,15 @@ public class UserServiceImpl implements IUserService {
 			return result;
 		}
 
-		UserInfoDO userInfoDOFromDB = userInfoManager
-				.queryUserInfoByMobilePhoneNo(userInfoDO.getMobilePhoneNo());
-		if (!this.isUserExists(userInfoDOFromDB)) {
+		UserInfoQuery userInfoQuery = new UserInfoQuery();
+		userInfoQuery.setMobilePhoneNo(userInfoDO.getMobilePhoneNo());
+		List<UserInfoDO> userInfos = userInfoManager.query(userInfoQuery);
+		if (CollectionUtils.isEmpty(userInfos)) {
 			result.setResultEnum(ResultEnum.MOBILE_PHONE_NO_NOT_EXISTS);
 			return result;
 		}
 
+		UserInfoDO userInfoDOFromDB = userInfos.get(0);
 		if (userInfoDO.getPassword().equals(userInfoDOFromDB.getPassword())) {
 			result.setReturnObject(userInfoDOFromDB);
 			result.setResultEnum(ResultEnum.SUCCESS);
@@ -98,9 +101,8 @@ public class UserServiceImpl implements IUserService {
 			return result;
 		}
 
-		userInfoDO.setGmtModify(new Date());
 		try {
-			userInfoManager.updateUserInfo(userInfoDO);
+			userInfoManager.update(userInfoDO);
 		} catch (Exception e) {
 			logger.error("更新用户信息失败", e);
 			result.setResultEnum(ResultEnum.DB_ERROR);
@@ -112,38 +114,26 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public CallServiceResult<List<UserInfoDO>> queryUserInfoByName(
-			String userName) {
+	public CallServiceResult<List<UserInfoDO>> queryUserInfo(
+			UserInfoQuery userInfoQuery) {
 		CallServiceResult<List<UserInfoDO>> result = new CallServiceResult<List<UserInfoDO>>();
-
-		UserInfoQuery userInfoQuery = new UserInfoQuery();
-		userInfoQuery.setUserName(userName);
-		userInfoQuery.setStatus(UserInfoDO.STATUS_NORMAL);
-		List<UserInfoDO> userInfoDOs = userInfoManager
-				.queryUserInfo(userInfoQuery);
-
+		List<UserInfoDO> userInfoDOs = userInfoManager.query(userInfoQuery);
 		result.setReturnObject(userInfoDOs);
 		result.setResultEnum(ResultEnum.SUCCESS);
 		return result;
 	}
 
 	@Override
-	public CallServiceResult<Void> deleteUserInfoById(Long id) {
+	public CallServiceResult<Void> deleteUserInfo(UserInfoDO userInfoDO) {
 		CallServiceResult<Void> result = new CallServiceResult<Void>();
-
 		try {
-			userInfoManager.deleteUserInfo(id);
+			userInfoManager.delete(userInfoDO);
 		} catch (Exception e) {
-			logger.error("删除用户失败,id=" + id, e);
+			logger.error("删除用户失败,id=" + userInfoDO.getId(), e);
 			result.setResultEnum(ResultEnum.DB_ERROR);
 			return result;
 		}
 
 		return result;
-	}
-
-	private Boolean isUserExists(UserInfoDO userInfoDOFromDB) {
-		return userInfoDOFromDB != null
-				&& userInfoDOFromDB.getStatus() == UserInfoDO.STATUS_NORMAL;
 	}
 }

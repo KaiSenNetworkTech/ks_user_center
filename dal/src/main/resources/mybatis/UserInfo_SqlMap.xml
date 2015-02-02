@@ -44,8 +44,8 @@
 		ORDER BY id DESC
 	</sql>
 
-	<insert id="insertUserInfo" parameterType="UserInfoDO"
-		useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="UserInfoDO" useGeneratedKeys="true"
+		keyProperty="id">
 		INSERT INTO
 		<include refid="UserInfoTable" />
 		(
@@ -66,7 +66,7 @@
 		)
 	</insert>
 
-	<update id="updateUserInfo" parameterType="UserInfoDO">
+	<update id="update" parameterType="UserInfoDO">
 		UPDATE
 		<include refid="UserInfoTable" />
 		<trim prefix="SET" suffixOverrides=",">
@@ -91,15 +91,12 @@
 			<if test="regionCode != null">
 				region_code=#{regionCode},
 			</if>
-			<if test="gmtModify != null">
-				gmt_modify=#{gmtModify}
-			</if>
 		</trim>
+		gmt_modify=#{gmtModify}
 		WHERE id=#{id}
 	</update>
 
-	<select id="queryUserInfo" parameterType="UserInfoQuery"
-		resultType="UserInfoDO">
+	<select id="query" parameterType="UserInfoQuery" resultType="UserInfoDO">
 		SELECT
 		<include refid="UserInfoField" />
 		FROM
@@ -108,7 +105,7 @@
 		<include refid="OrderCondition" />
 	</select>
 
-	<delete id="deleteUserInfo" parameterType="UserInfoDO">
+	<delete id="delete" parameterType="UserInfoDO">
 		DELETE FROM
 		<include refid="UserInfoTable" />
 		WHERE

@@ -6,13 +6,11 @@ import com.kaisen.usercenter.domain.UserInfoDO;
 import com.kaisen.usercenter.query.UserInfoQuery;
 
 public interface IUserInfoManager {
-	void insertUserInfo(UserInfoDO userInfoDO);
+	void insert(UserInfoDO userInfoDO);
 
-	void updateUserInfo(UserInfoDO userInfoDO);
+	void update(UserInfoDO userInfoDO);
 
-	List<UserInfoDO> queryUserInfo(UserInfoQuery userInfoQuery);
+	List<UserInfoDO> query(UserInfoQuery userInfoQuery);
 
-	void deleteUserInfo(Long id);
-
-	UserInfoDO queryUserInfoByMobilePhoneNo(String mobilePhoneNo);
+	void delete(UserInfoDO userInfoDO);
 }
