@@ -27,7 +27,7 @@ public class UserInfoManagerImpl implements IUserInfoManager {
 	public void insert(UserInfoDO userInfoDO) {
 		logger.debug("插入用户信息{}", userInfoDO);
 		Integer num = userInfoDAO.insert(userInfoDO);
-		logger.debug("插入用户记录成功,共{}条", num);
+		logger.debug("插入用户记录成功,id={}", num);
 	}
 
 	@Override
