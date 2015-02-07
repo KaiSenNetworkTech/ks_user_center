@@ -76,17 +76,15 @@ public class UserServiceImpl implements IUserService {
 			return result;
 		}
 
-		UserInfoQuery userInfoQuery = new UserInfoQuery();
-		userInfoQuery.setMobilePhoneNo(userInfoDO.getMobilePhoneNo());
-		List<UserInfoDO> userInfos = userInfoManager.query(userInfoQuery);
-		if (CollectionUtils.isEmpty(userInfos)) {
+		UserInfoDO userInfo = userInfoManager.getUserInfo(userInfoDO
+				.getMobilePhoneNo());
+		if (userInfo == null) {
 			result.setResultEnum(ResultEnum.MOBILE_PHONE_NO_NOT_EXISTS);
 			return result;
 		}
 
-		UserInfoDO userInfoDOFromDB = userInfos.get(0);
-		if (userInfoDO.getPassword().equals(userInfoDOFromDB.getPassword())) {
-			result.setReturnObject(userInfoDOFromDB);
+		if (userInfoDO.getPassword().equals(userInfo.getPassword())) {
+			result.setReturnObject(userInfo);
 			return result;
 		} else {
 			result.setResultEnum(ResultEnum.MOBILE_PHONE_NO_OR_PASSWORD_ERROR);
@@ -97,8 +95,8 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public CallServiceResult<Void> updateUserInfo(UserInfoDO userInfoDO) {
 		CallServiceResult<Void> result = new CallServiceResult<Void>();
-		if (userInfoDO == null || userInfoDO.getId() == null
-				|| userInfoDO.getId() < 1) {
+		if (userInfoDO == null
+				|| StringUtils.isBlank(userInfoDO.getMobilePhoneNo())) {
 			result.setResultEnum(ResultEnum.PARAMS_ERROR);
 			return result;
 		}
@@ -131,7 +129,8 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public CallServiceResult<Void> deleteUserInfo(UserInfoDO userInfoDO) {
 		CallServiceResult<Void> result = new CallServiceResult<Void>();
-		if (userInfoDO == null) {
+		if (userInfoDO == null
+				|| StringUtils.isBlank(userInfoDO.getMobilePhoneNo())) {
 			result.setResultEnum(ResultEnum.PARAMS_ERROR);
 			return result;
 		}

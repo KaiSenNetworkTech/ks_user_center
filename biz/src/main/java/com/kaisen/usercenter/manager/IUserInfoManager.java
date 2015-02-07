@@ -13,4 +13,6 @@ public interface IUserInfoManager {
 	List<UserInfoDO> query(UserInfoQuery userInfoQuery);
 
 	void delete(UserInfoDO userInfoDO);
+
+	UserInfoDO getUserInfo(String mobilePhoneNo);
 }
